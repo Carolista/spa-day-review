@@ -27,7 +27,7 @@ public class SpaDayController {
     @GetMapping(value="")
     @ResponseBody
     public String customerForm () {
-        String html = "<form method = 'post' action='/menu'>" +
+        String html = "<form method = 'post'>" +
                 "Name: <br>" +
                 "<input type = 'text' name = 'name'>" +
                 "<br>Skin type: <br>" +
@@ -41,14 +41,13 @@ public class SpaDayController {
                 "<select name = 'manipedi'>" +
                 "<option value = 'manicure'>Manicure</option>" +
                 "<option value = 'pedicure'>Pedicure</option>" +
-                "<option value = 'both'>Mani/Pedi</option>" +
                 "</select><br>" +
                 "<input type = 'submit' value = 'Submit'>" +
                 "</form>";
         return html;
     }
 
-    @PostMapping(value="/menu")
+    @PostMapping(value="")
     public String spaMenu(@RequestParam String name, @RequestParam String skintype, @RequestParam String manipedi, Model model) {
 
         ArrayList<String> facials = new ArrayList<>();
@@ -63,21 +62,6 @@ public class SpaDayController {
                 appropriateFacials.add(facials.get(i));
             }
         }
-
-        ArrayList<String> polishChoices = new ArrayList<>();
-        polishChoices.add("#ed553e");
-        polishChoices.add("#ed3e4d");
-        polishChoices.add("#d12c71");
-        polishChoices.add("#a31787");
-        polishChoices.add("#34a39e");
-        polishChoices.add("#63c295");
-
-        model.addAttribute("polishChoices", polishChoices);
-
-        model.addAttribute("name", name);
-        model.addAttribute("skintype", skintype);
-        model.addAttribute("manipedi", manipedi);
-        model.addAttribute("appropriateFacials", appropriateFacials);
 
         return "menu";
     }
